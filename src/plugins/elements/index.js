@@ -11,9 +11,24 @@ import {
   Select,
   Option,
   Alert,
+  Dialog,
+  RadioGroup,
+  Radio,
 } from 'element-ui';
 
-const elements = [Button, Card, Form, FormItem, Input, Select, Option, Alert];
+const elements = [
+  Button,
+  Card,
+  Form,
+  FormItem,
+  Input,
+  Select,
+  Option,
+  Alert,
+  Dialog,
+  RadioGroup,
+  Radio,
+];
 
 locale.use(lang); // English
 

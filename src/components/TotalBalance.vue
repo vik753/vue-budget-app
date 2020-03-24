@@ -1,5 +1,5 @@
 <template>
-  <div class="total-value">Balance: {{ total }}</div>
+  <div class="total-value" :class="setColorClass">Balance: {{ total }}</div>
 </template>
 
 <script>
@@ -9,6 +9,16 @@ export default {
     total: {
       type: Number,
       default: 0,
+    },
+  },
+  computed: {
+    setColorClass: function() {
+      if (this.total === 0) {
+        return 'zero-color';
+      } else if (this.total < 0) {
+        return 'below-zero-color';
+      }
+      return '';
     },
   },
 };
@@ -29,5 +39,15 @@ export default {
   padding: 20px;
   text-align: center;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.total-value.zero-color {
+  color: #000;
+  background: rgba(173, 173, 173, 0.151);
+}
+
+.total-value.below-zero-color {
+  color: rgba(219, 13, 13, 0.918);
+  background: rgba(255, 18, 1, 0.514);
 }
 </style>
