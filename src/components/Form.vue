@@ -1,6 +1,11 @@
 <template>
   <ElCard class="form-card">
-    <ElForm :model="formData">
+    <ElForm
+      :model="formData"
+      ref="addItemForm"
+      :rules="rules"
+      label-position="left"
+    >
       <ElFormItem label="Type" prop="type">
         <ElSelect
           class="type-select"
@@ -25,15 +30,51 @@
 <script>
 export default {
   name: 'Form',
-  data: () => ({
-    formData: {
-      type: 'INCOME',
-      comment: '',
-      value: 0,
-    },
-  }),
+  data() {
+    const validateValue = (rule, value, callback) => {
+      if (value === 0) {
+        callback(new Error("Value can't be zero!"));
+      } else {
+        callback();
+      }
+    };
+    return {
+      formData: {
+        type: 'INCOME',
+        comment: '',
+        value: 0,
+      },
+      rules: {
+        type: [
+          { required: true, message: 'Please select type', trigger: 'blur' },
+        ],
+        comment: [
+          { required: true, message: 'Please input comment', trigger: 'blur' },
+        ],
+        value: [
+          { required: true, message: 'Please input value', trigger: 'blur' },
+          {
+            type: 'number',
+            message: 'Value must be a number',
+            trigger: 'change',
+          },
+          { validator: validateValue, trigger: 'change' },
+        ],
+      },
+    };
+  },
   methods: {
-    onSubmit() {},
+    onSubmit() {
+      this.$refs.addItemForm.validate(valid => {
+        if (valid && this.formData.value !== 0) {
+          if (this.formData.type === 'OUTCOME' && this.formData.value > 0) {
+            this.formData.value = -this.formData.value;
+          }
+          this.$emit('onFormSubmit', this.formData);
+          this.$refs.addItemForm.resetFields();
+        }
+      });
+    },
   },
 };
 </script>
@@ -41,7 +82,7 @@ export default {
 <style scoped>
 .form-card {
   max-width: 500px;
-  margin: 0 auto 1rem ;
+  margin: 0 auto 1rem;
 }
 .type-select {
   width: 100%;
