@@ -1,7 +1,11 @@
 <template>
   <div class="budget-list-wrap">
     <ElCard :header="header">
-      <el-radio-group class="radioGroup" v-model="radio" @change="handleBudgetListFilter">
+      <el-radio-group
+        class="radioGroup"
+        v-model="radio"
+        @change="handleBudgetListFilter"
+      >
         <el-radio :label="1">All</el-radio>
         <el-radio :label="2">INCOME</el-radio>
         <el-radio :label="3">OUTCOME</el-radio>
@@ -43,9 +47,9 @@ export default {
     filterList() {
       if (this.filter === 'ALL') return this.list;
 
-      const filteredList = Object.entries(this.list).filter(([, val]) => {
-        return val.type === this.filter;
-      });
+      const filteredList = Object.entries(this.list).filter(
+        ([, val]) => val.type === this.filter
+      );
 
       return filteredList.reduce((acc, item) => {
         acc[item[0]] = item[1];
@@ -78,7 +82,7 @@ export default {
 </script>
 
 <style scoped>
-.radioGroup{
+.radioGroup {
   padding-bottom: 1rem;
   border-bottom: 1px solid #e0dfdfb4;
   width: 100%;
