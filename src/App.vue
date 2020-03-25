@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import uuidv4 from './plugins/uuid';// generate unique id
 import BudgetList from './components/BudgetList';
 import TotalBalance from './components/TotalBalance';
 import Form from './components/Form';
@@ -47,9 +48,7 @@ export default {
       this.$delete(this.list, id);
     },
     onAddItem(data) {
-      const newId = `${Date.now() * Math.floor(Math.random() * 1000)}-${String(
-        Date.now()
-      )}`;
+      const newId = uuidv4();
       const newObj = {
         ...data,
         id: newId,

@@ -63,16 +63,16 @@ export default {
     },
     handleBudgetListFilter(val) {
       switch (val) {
-        case 1: {
-          this.filter = 'ALL';
-          break;
-        }
         case 2: {
           this.filter = 'INCOME';
           break;
         }
         case 3: {
           this.filter = 'OUTCOME';
+          break;
+        }
+        default: {
+          this.filter = 'ALL';
           break;
         }
       }
