@@ -69,6 +69,8 @@ export default {
         if (valid && this.formData.value !== 0) {
           if (this.formData.type === 'OUTCOME' && this.formData.value > 0) {
             this.formData.value = -this.formData.value;
+          } else if(this.formData.type === 'INCOME' && this.formData.value < 0){
+            this.formData.value = Math.abs(this.formData.value);
           }
           this.$emit('onFormSubmit', this.formData);
           this.$refs.addItemForm.resetFields();
